@@ -1,0 +1,20 @@
+# command_manifest.tsv — 实际执行的命令族（按族汇总；单条命令的 stdout/stderr/time 见 logs/）
+# 列: stage	command	purpose	reps	exit_status	log_or_artifact
+0	nvidia-smi; nvidia-smi topo -m; numactl --hardware; df -h /; git -C reference/DiskJoin rev-parse HEAD; git -C reference/DiskJoin status --short	环境/拓扑/磁盘/源SHA审计	1	0	logs/preflight.log; ENVIRONMENT.md; SOURCE_AUDIT.md
+0	CUDA_VISIBLE_DEVICES=0 /usr/local/cuda/bin/nvcc -arch=sm_120 -ccbin g++ -O3 src/smoke.cu -o build/smoke && build/smoke	CUDA sm_120 向量计算+synchronize smoke	1	0	logs/smoke_build.log
+0	CUDA_VISIBLE_DEVICES=1 /tmp/gvutest2; CUDA_VISIBLE_DEVICES=2 /tmp/gvutest2	GPU1/2 可用性探针（cudaSetDevice）	1	1(oom)	ENVIRONMENT.md; reports/GATE_D_MULTI_GPU.md
+build	g++ -O3 -march=native -fopenmp src/DiskJoin_instr/... -o build/dj_instr	带 [gate-gpu] 计时的指令插桩版原生 DiskJoin	1	0	logs/build_instr.log
+build	g++ -O3 -march=native -fopenmp src/DiskJoin_gpu/... -o build/dj_gpu	含 GATE_GPU=0/1/2/3 门控的 E2E 驱动	1	0	logs/build_djgpu_main.log; logs/build_djgpu.log
+build	g++ -O3 -march=native -fopenmp src/replay_cpu.cpp -o build/replay_cpu	B0 CPU 验证 replay（冻结任务图）	1	0	logs/build_replay_cpu.log
+build	/usr/local/cuda/bin/nvcc -arch=sm_120 -ccbin g++ -O3 src/replay_gpu.cu -o build/replay_gpu; 同法 src/gpu_verify.cu -o build/gpu_verify	GPU replay / microbench 实现	1	0	logs/build_gpu.log; logs/build_search_only.log
+trace	OMP=1 build/dj_instr configs/{p1,p3,bigann100k.config}	导出任务图/逐任务真值/缓存trace（search-only 驱动，冻结数据只读）	1	0	logs/{frozen_p1,frozen_p3,frozen_bigann}.*; traces/*/
+gateA	for T in 1 16 32: numactl --cpunodebind=0 --membind=0 OMP_NUM_THREADS=$T /usr/bin/time -v build/dj_ref configs/bigann100k.config	原生 CPU 基线 sweep	5	0	logs/cpu_*_t{T}_r{1..5}.{stdout,time}; results/raw/cpu_native_sweep.txt
+gateA	OMP=1 build/dj_instr configs/bigann100k.config（mode=0 分相计时）	阶段分解（cand/io/verify）	5	0	logs/e2e_m0_t{1,16}.{stdout,stderr}
+gateA	numactl ... OMP_NUM_THREADS=$T build/replay_cpu traces/bigann100k/tasks.txt	B0 CPU 验证基线（冻结任务图）	5	0	results/raw/bigann_cpu_{summary,tasks}_t{T}_r{rep}.*
+gateB	build/replay_gpu traces/bigann100k/tasks.txt --batch {1,8,32,128,1024,13012} --resident	GPU 验证-only batch 扫描（VRAM 常驻）	5	0	results/raw/bigann_gpu_resident_b*.csv; results/summary/gpu_replay_summary.csv
+gateB	build/replay_gpu ... --per-task-h2d（pageable / pinned）	naive 逐任务 H2D 对照	1	0	results/raw/bigann_gpu_{pageable,pinned}.csv
+gateB	build/gpu_verify --micro d={16,128} m={32,128,512,2048} B={1,8,32,128}	microbench（正式 5 reps）	5	0	results/raw/micro_d{16,128}_formal.csv; logs/micro_d{16,128}.log
+gateB	for M in 0 1 2 3: CUDA_VISIBLE_DEVICES=0 GATE_GPU=$M OMP_NUM_THREADS=$T build/dj_gpu configs/bigann100k.config	E2E 四模式正式对照（T=1,16）	5	0	logs/e2e_bigann_m{M}_t{T}_r{rep}.*; results/raw/e2e_bigann_formal.csv
+gateB	for M in 0 2 3: GATE_GPU=$M OMP_NUM_THREADS=1 build/dj_gpu configs/{p1,p3}.config	p1/p3 E2E 对照（T=1）	5	0	logs/e2e_{p1,p3}_m{M}_r{rep}.*; results/raw/e2e_p1p3_formal_raw.txt
+verify	python3 scripts/oracle_pairs.py（numpy fp64 oracle + 多重集比对）	四实现输出逐位/边界校验	1	0	reports/correctness_report.md; logs/p1_instr.*
+notes	上表 exit_status：0=全部 rep 通过；1(oom)=GPU1/2 探针预期失败（复现驱动故障）。gpu_replay batch 扫描的逐次日志被后续 rep 覆盖，权威数据以 results/raw/*.csv 为准。	-	-	-	-

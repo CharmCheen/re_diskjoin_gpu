@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+reference/DiskJoin/
+paper/*.pdf
+# workspace generated assets: only the frozen GPU baseline pack + reports are tracked
+workspace/*
+!workspace/gpu_feasibility_20261102
+!workspace/*.md

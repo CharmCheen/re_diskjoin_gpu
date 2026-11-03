@@ -1,0 +1,39 @@
+=== date ===
+2026年 11月 02日 星期一 21:51:55 CST
+=== df ===
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda2       879G  823G   11G  99% /
+=== nvidia-smi topo -m ===
+	[4mGPU0	GPU1	GPU2	CPU Affinity	NUMA Affinity	GPU NUMA ID[0m
+GPU0	 X 	SYS	SYS	0-15,32-47	0		N/A
+GPU1	SYS	 X 	NODE	16-31,48-63	1		N/A
+GPU2	SYS	NODE	 X 	16-31,48-63	1		N/A
+
+Legend:
+
+  X    = Self
+  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)
+  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node
+  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)
+  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)
+  PIX  = Connection traversing at most a single PCIe bridge
+  NV#  = Connection traversing a bonded set of # NVLinks
+=== numactl ===
+available: 2 nodes (0-1)
+node 0 cpus: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47
+node 0 size: 64108 MB
+node 0 free: 6307 MB
+node 1 cpus: 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63
+node 1 size: 64453 MB
+node 1 free: 2025 MB
+node distances:
+node   0   1 
+  0:  10  21 
+  1:  21  10 
+=== nvcc ===
+Cuda compilation tools, release 12.8, V12.8.61
+Build cuda_12.8.r12.8/compiler.35404655_0
+=== gcc ===
+g++ (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0
+=== load ===
+ 21:51:58 up 284 days, 11:48,  8 users,  load average: 0.46, 0.28, 0.17

@@ -1,0 +1,30 @@
+== T=1 rep=1
+rep0 verify_wall=1.319847 dist_comp=154113486 sampled=2
+== T=1 rep=2
+rep0 verify_wall=1.319529 dist_comp=154113486 sampled=2
+== T=1 rep=3
+rep0 verify_wall=1.313557 dist_comp=154113486 sampled=2
+== T=1 rep=4
+rep0 verify_wall=1.310983 dist_comp=154113486 sampled=2
+== T=1 rep=5
+rep0 verify_wall=1.314710 dist_comp=154113486 sampled=2
+== T=16 rep=1
+rep0 verify_wall=0.191596 dist_comp=154113486 sampled=2
+== T=16 rep=2
+rep0 verify_wall=0.193047 dist_comp=154113486 sampled=2
+== T=16 rep=3
+rep0 verify_wall=0.193231 dist_comp=154113486 sampled=2
+== T=16 rep=4
+rep0 verify_wall=0.193032 dist_comp=154113486 sampled=2
+== T=16 rep=5
+rep0 verify_wall=0.193009 dist_comp=154113486 sampled=2
+== T=32 rep=1
+rep0 verify_wall=0.259044 dist_comp=154113486 sampled=2
+== T=32 rep=2
+rep0 verify_wall=0.259861 dist_comp=154113486 sampled=2
+== T=32 rep=3
+rep0 verify_wall=0.257331 dist_comp=154113486 sampled=2
+== T=32 rep=4
+rep0 verify_wall=0.258403 dist_comp=154113486 sampled=2
+== T=32 rep=5
+rep0 verify_wall=0.260428 dist_comp=154113486 sampled=2

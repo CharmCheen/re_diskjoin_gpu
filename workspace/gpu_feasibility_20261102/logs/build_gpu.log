@@ -1,0 +1,32 @@
+src/replay_gpu.cu(235): warning #1650-D: result of call is not used
+          char line[256]; fgets(line, 256, f);
+                          ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+src/replay_gpu.cu(235): warning #1650-D: result of call is not used
+          char line[256]; fgets(line, 256, f);
+                          ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+src/replay_gpu.cu: In function ‘int main(int, char**)’:
+src/replay_gpu.cu:235:22: warning: ignoring return value of ‘char* fgets(char*, int, FILE*)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  235 |         char line[256]; fgets(line, 256, f);
+      |                 ~~~~~^~~~~~~~~~~~~~
+src/replay_gpu.cu(234): warning #1650-D: result of call is not used
+          char line[256]; fgets(line, 256, f);
+                          ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+src/replay_gpu.cu(234): warning #1650-D: result of call is not used
+          char line[256]; fgets(line, 256, f);
+                          ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+src/replay_gpu.cu: In function ‘int main(int, char**)’:
+src/replay_gpu.cu:234:22: warning: ignoring return value of ‘char* fgets(char*, int, FILE*)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  234 |         char line[256]; fgets(line, 256, f);
+      |                 ~~~~~^~~~~~~~~~~~~~

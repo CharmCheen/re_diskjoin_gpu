@@ -1,0 +1,1 @@
+[gate-gpu] mode=1 cand_s=0.211948 io_s=1.97616 verify_s=0.165974 gpu_init_s=3.31293 matches=3855811 dist_comp=154113584 peak_vram=4677968

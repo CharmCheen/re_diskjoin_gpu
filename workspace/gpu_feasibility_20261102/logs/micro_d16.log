@@ -1,0 +1,16 @@
+micro m=32 B=1 d=16: h2d=11.5us kernel=26.4us wall=57.1us per-rep-avg
+micro m=32 B=8 d=16: h2d=10.9us kernel=6.6us wall=31.7us per-rep-avg
+micro m=32 B=32 d=16: h2d=15.0us kernel=5.5us wall=34.9us per-rep-avg
+micro m=32 B=128 d=16: h2d=39.7us kernel=6.8us wall=62.5us per-rep-avg
+micro m=128 B=1 d=16: h2d=8.8us kernel=5.5us wall=27.8us per-rep-avg
+micro m=128 B=8 d=16: h2d=14.8us kernel=7.1us wall=35.8us per-rep-avg
+micro m=128 B=32 d=16: h2d=38.2us kernel=14.0us wall=66.7us per-rep-avg
+micro m=128 B=128 d=16: h2d=140.7us kernel=33.7us wall=193.7us per-rep-avg
+micro m=512 B=1 d=16: h2d=17.7us kernel=9.1us wall=41.0us per-rep-avg
+micro m=512 B=8 d=16: h2d=38.6us kernel=36.0us wall=89.1us per-rep-avg
+micro m=512 B=32 d=16: h2d=128.4us kernel=127.7us wall=273.8us per-rep-avg
+micro m=512 B=128 d=16: h2d=454.0us kernel=477.8us wall=955.1us per-rep-avg
+micro m=2048 B=1 d=16: h2d=22.9us kernel=64.2us wall=101.8us per-rep-avg
+micro m=2048 B=8 d=16: h2d=129.6us kernel=474.3us wall=621.4us per-rep-avg
+micro m=2048 B=32 d=16: h2d=461.4us kernel=1862.9us wall=2346.7us per-rep-avg
+micro m=2048 B=128 d=16: h2d=2369.2us kernel=7432.5us wall=9842.0us per-rep-avg
